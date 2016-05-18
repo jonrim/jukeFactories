@@ -46,7 +46,7 @@ juke.factory('AlbumFactory', function($http, $log, StatsFactory) {
     fetchById: function(n) {
       return this.fetchAll()
       .then(function (albums) {
-        return $http.get('/api/albums/' + albums[n].id) // temp: get one
+        return $http.get('/api/albums/' + n) // temp: get one
       })
       .then(function (res) { return res.data; })
       .then(function (album) {

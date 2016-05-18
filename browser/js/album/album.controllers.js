@@ -7,16 +7,26 @@ juke.controller('AlbumCtrl', function ($scope, AlbumFactory, $rootScope, StatsFa
   .then(function(albums) {
     $rootScope.albums = albums;
   });
-  AlbumFactory.fetchById(0)
-  .then(function(album) {
-    $rootScope.album = album;
+  $rootScope.$on('viewSwap', function(event, data) {
+    $rootScope.currentView = data.name;
   });
 
 });
 
 juke.controller('AlbumsCtrl', function ($scope, AlbumFactory, $rootScope, StatsFactory) {
+  $rootScope.showAlbums = false;
   AlbumFactory.fetchAll()
   .then(function(albums) {
     $rootScope.albums = albums;
   });
+  $rootScope.$on('viewSwap', function(event, data) {
+    $rootScope.currentView = data.name;
+  })
+  $scope.viewOneAlbum = function(id) {
+    AlbumFactory.fetchById(id)
+    .then(function(album) {
+      $rootScope.album = album;
+    });
+    $rootScope.$broadcast('viewSwap', {name: 'oneAlbum'});
+  };
 });
