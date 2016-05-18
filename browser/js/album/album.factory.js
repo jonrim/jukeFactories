@@ -36,7 +36,6 @@ juke.factory('AlbumFactory', function($http, $log, StatsFactory) {
       return $http.get('/api/albums/')
       .then(function (res) { return res.data; })
       .then(function (albums) {
-        console.log(albums);
         albums.forEach((album) => {
           album.imageUrl = '/api/albums/' + album.id + '/image';
         });
